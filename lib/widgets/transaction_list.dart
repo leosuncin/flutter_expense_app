@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 75,
+      height: 300,
       child: ListView.builder(
         itemBuilder: (context, index) {
           Transaction transaction = _transactions[index];
