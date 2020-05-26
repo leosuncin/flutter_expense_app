@@ -33,7 +33,7 @@ class Chart extends StatelessWidget {
         DateFormat.E().format(weekDay)[0],
         totalSum,
       );
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending => groupedTransactionValues.fold(
