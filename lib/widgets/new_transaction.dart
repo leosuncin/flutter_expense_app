@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -79,23 +82,37 @@ class _NewTransactionState extends State<NewTransaction> {
                           ? 'Picked date ${DateFormat.yMd().format(selectedDate)}'
                           : 'No date chosen!'),
                     ),
-                    FlatButton(
-                      child: Text(
-                        'Choose date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    if (Platform.isAndroid)
+                      FlatButton(
+                        child: Text(
+                          'Choose date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        textColor: theme.primaryColor,
+                        onPressed: presentDatePicker,
                       ),
-                      textColor: theme.primaryColor,
-                      onPressed: presentDatePicker,
-                    ),
+                    if (Platform.isIOS)
+                      CupertinoButton(
+                          child: Text(
+                            'Choose date',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: presentDatePicker)
                   ],
                 ),
               ),
-              RaisedButton(
-                child: Text('Add transaction'),
-                color: theme.primaryColor,
-                textColor: theme.textTheme.button.color,
-                onPressed: handleSubmit,
-              ),
+              if (Platform.isAndroid)
+                RaisedButton(
+                  child: Text('Add transaction'),
+                  color: theme.primaryColor,
+                  textColor: theme.textTheme.button.color,
+                  onPressed: handleSubmit,
+                ),
+              if (Platform.isIOS)
+                CupertinoButton.filled(
+                  child: Text('Add transaction'),
+                  onPressed: handleSubmit,
+                ),
             ],
           ),
         ),
