@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'models/transaction.dart';
@@ -84,41 +85,58 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final appBar = AppBar(
-      title: Text('Personal expenses'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => _showAddTransaction(context),
-        ),
-      ],
-    );
+    final PreferredSizeWidget appBar = Platform.isAndroid
+        ? AppBar(
+            title: Text('Personal expenses'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => _showAddTransaction(context),
+              ),
+            ],
+          )
+        : CupertinoNavigationBar(
+            middle: Text('Personal expenses'),
+            trailing: GestureDetector(
+              child: Icon(CupertinoIcons.add),
+              onTap: () => _showAddTransaction(context),
+            ),
+          );
     final height = (mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top);
-
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              height: height * 0.3,
-              child: Chart(_recentTransactions),
-            ),
-            Container(
-              height: height * 0.7,
-              child: TransactionList(_userTransactions, _deleteTransaction),
-            ),
-          ],
-        ),
+    final pageBody = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            height: height * 0.3,
+            child: Chart(_recentTransactions),
+          ),
+          Container(
+            height: height * 0.7,
+            child: TransactionList(_userTransactions, _deleteTransaction),
+          ),
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isAndroid ? FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _showAddTransaction(context),
-      ) : null,
     );
+
+    return Platform.isAndroid
+        ? Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isAndroid
+                ? FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => _showAddTransaction(context),
+                  )
+                : null,
+          )
+        : CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          );
   }
 }
