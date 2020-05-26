@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final appBar = AppBar(
       title: Text('Personal expenses'),
       actions: <Widget>[
@@ -90,9 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-    final height = (MediaQuery.of(context).size.height -
+    final height = (mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top);
+        mediaQuery.padding.top);
 
     return Scaffold(
       appBar: appBar,

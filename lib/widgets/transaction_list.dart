@@ -11,13 +11,15 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return _transactions.isEmpty
         ? LayoutBuilder(builder: (ctx, constraints) {
             return Column(
               children: <Widget>[
                 Text(
                   'No transactions added yet!',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: theme.textTheme.headline6,
                 ),
                 Spacer(),
                 Container(
@@ -51,7 +53,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   title: Text(
                     transaction.title,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: theme.textTheme.headline6,
                   ),
                   subtitle: Text(
                     DateFormat.yMMMd().format(transaction.date),
@@ -59,7 +61,7 @@ class TransactionList extends StatelessWidget {
                   trailing: MediaQuery.of(context).size.width > 360
                       ? FlatButton.icon(
                           icon: Icon(Icons.delete),
-                          textColor: Theme.of(context).errorColor,
+                          textColor: theme.errorColor,
                           label: Text('Delete'),
                           onPressed: () {
                             _deleteTransaction(transaction.id);
@@ -67,7 +69,7 @@ class TransactionList extends StatelessWidget {
                         )
                       : IconButton(
                           icon: Icon(Icons.delete),
-                          color: Theme.of(context).errorColor,
+                          color: theme.errorColor,
                           onPressed: () {
                             _deleteTransaction(transaction.id);
                           },

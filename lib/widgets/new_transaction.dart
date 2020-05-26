@@ -44,6 +44,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     const double padding = 10;
 
     return SingleChildScrollView(
@@ -83,7 +84,7 @@ class _NewTransactionState extends State<NewTransaction> {
                         'Choose date',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      textColor: Theme.of(context).primaryColor,
+                      textColor: theme.primaryColor,
                       onPressed: presentDatePicker,
                     ),
                   ],
@@ -91,8 +92,8 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               RaisedButton(
                 child: Text('Add transaction'),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).textTheme.button.color,
+                color: theme.primaryColor,
+                textColor: theme.textTheme.button.color,
                 onPressed: handleSubmit,
               ),
             ],
