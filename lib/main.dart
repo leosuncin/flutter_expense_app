@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final height = (mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top);
-    final pageBody = SingleChildScrollView(
+    final pageBody = SafeArea(child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-    );
+    ));
 
     return Platform.isAndroid
         ? Scaffold(
